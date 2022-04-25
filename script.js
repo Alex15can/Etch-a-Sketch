@@ -1,7 +1,6 @@
 let n = 16;
 mousedColor = "blue"
-const reDraw = true
-
+drawGrid(n)
 
 function drawGrid(n) {
     for (j = 0; j < n**2; j++) {
@@ -16,10 +15,26 @@ function drawGrid(n) {
 function mouseOvered(divId) {
     document.getElementById(`${divId}`).style.backgroundColor = `${mousedColor}`;
 }
-function resizeGrid(n) {
+function resizeGrid() {
+    n = getPrompt()
+    if (n > 100) {
+        n = getPrompt()
+    }
+    removeAllChildNodes(gridBox);
     document.getElementById("gridBox").style.gridTemplateColumns = `repeat(${n}, 1fr)`;
     document.getElementById("gridBox").style.gridAutoRows = `${960/n}px`
     console.log(n)
     drawGrid(n)
 }
-resizeGrid(100)
+
+function getPrompt() {
+    let n =  window.prompt("new grid size")
+    console.log(n)
+    return n
+
+}
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
